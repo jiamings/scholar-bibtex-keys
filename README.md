@@ -2,7 +2,12 @@
 
 Convert bibtex keys to Google scholar style: `[first-author-last-name][year][title-first-word]`.
 
+Added arxiv fix for PaperPile export.
+
+
 ## Usage
+
+Command line: `python scholar_bibtex_keys.py [input_file] [output_file]`
 
 See function `convert_bibtex_keys(input_file, output_file)`.
 
