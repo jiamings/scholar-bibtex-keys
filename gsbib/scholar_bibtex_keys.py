@@ -9,9 +9,17 @@ def obtain_replace_keys(bib_data):
     """
     keys, new_keys = [], []
     for key in bib_data.entries.keys():
-        author_last_name = bib_data.entries[key].persons['author'][0].last_names[0].lower()
-        year = bib_data.entries[key].fields['year']
-        title_first_word = re.search(r'\w+', bib_data.entries[key].fields['title']).group(0).lower()
+        try:
+            author_last_name = bib_data.entries[key].persons['author'][0].last_names[0].lower(
+            )
+        except:
+            print(key)
+        try:
+            year = bib_data.entries[key].fields['year']
+        except:
+            year = ''
+        title_first_word = re.search(
+            r'\w+', bib_data.entries[key].fields['title']).group(0).lower()
         new_key = author_last_name + year + title_first_word
         keys.append(key)
         new_keys.append(new_key)
@@ -43,7 +51,7 @@ def convert_bibtex_keys(input_file: str, output_file: str):
         new_entries[new_key] = bib_data.entries[key]
     bib_data.entries = new_entries
     bib_data = update_arxiv_information(bib_data)
-    with open(output_file, 'w') as ofile:
+    with open(output_file, 'w', encoding='utf-8') as ofile:
         bib_data.to_file(ofile)
 
 
